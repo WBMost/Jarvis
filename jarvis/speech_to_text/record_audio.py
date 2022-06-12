@@ -1,5 +1,8 @@
+import math
 import pyaudio
-import time, struct, math, wave
+import struct
+import time
+import wave
 
 #Assuming Energy threshold upper than 10 dB
 Threshold = 20
@@ -68,17 +71,6 @@ class Recorder:
         if __name__ == 'main':
             print('Written to file: {}'.format(filename))
         return filename
-        """
-        fs=44100 # frequency
-        duration = 5 # seconds
-        #save the recording
-        myrecording = sd.rec(duration * fs, samplerate = fs, channels = 2, dtype = 'float64')
-        print("Recording Audio")
-        #wait for the audio to record
-        sd.wait()
-        
-        sf.write(filename, myrecording, fs)
-        return filename"""
 
     def listen(self):
         if __name__ == 'main':
@@ -93,7 +85,5 @@ class Recorder:
         
 
 if __name__ == '__main__':
-    """file = record_audio(5)
-    print('recording created: ' + file )"""
     a = Recorder()
     a.listen()
