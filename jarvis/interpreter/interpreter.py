@@ -8,35 +8,41 @@ PHRASE_CLASSES = [
     'command',
     'farewell'
 ]
-# input key words
-INPUT_GREETINGS = [
-    'hi',
-    'hello',
-    'greetings',
-    'good morning',
-    'good evening',
-    'good afternoon',
-    'howdy',
-    'sup',
-    'hiya',
-    "What's up",
-    'yo',
-]
-INPUT_NEGATIVE = [
-    'no',
-]
-INPUT_SMALL_TALK = [
-    ['how', 'are', 'you'],
-    ['how', 'is', 'it', 'going'],
-]
-INPUT_FAREWELLS = [
-    'bye',
-    'goodbye',
-    'see ya',
-    'see you',
-    'see you later',
-    'talk to you later',
-]
+
+# input key phrases
+INPUT_PHRASES = {
+    'greeting': [
+        'hi',
+        'hello',
+        'greetings',
+        'good morning',
+        'good evening',
+        'good afternoon',
+        'howdy',
+        'sup',
+        'hiya',
+        "What's up",
+        'yo',
+    ],
+    'question':[
+
+    ],
+    'conversation':[
+        'how are you',
+        'how is it going',
+    ],
+    'command':[
+
+    ],
+    'farewell': [
+        'bye',
+        'goodbye',
+        'see ya',
+        'see you',
+        'see you later',
+        'talk to you later',
+    ],
+}
 
 # Jarvis responses
 GREETINGS = [
@@ -101,13 +107,15 @@ class Interpreter:
 
     # interpret what type of input was given
     def interpret(self):
-        self.input_type = ''
         # check if input was a greeting
         # TODO: add more precice responses "good evening", "good morning"
-        if (x in self.input for x in INPUT_GREETINGS):
-            self.input_type = PHRASE_CLASSES[0]
-        elif (x in self.input for x in INPUT_FAREWELLS):
-            self.input_type = PHRASE_CLASSES[4]
+        self.input_type = ''
+        for k,v in INPUT_PHRASES.items():
+            for x in v:
+                if x in self.input:
+                    self.input_type = k
+                    return
+
 
     # allow jarvis to respond
     def respond(self):
