@@ -19,21 +19,20 @@ def interpret_audio(filename):
         try:
             text = r.recognize_google(audio_data)
         except:
-            return ''
+            return 'no audio to transcribe...'
         # print for debugging and display interpretation
         return text
 
 def write_audio_to_txt(text):
     # set filename to date for logging purposes
-    if text == 'no audio to transcribe...':
-        return
     date = get_file_date()
     archived_filename = 'jarvis\\files\\data\\tanscribed_recording.txt'.format(date[0],date[1])
     filename = 'jarvis\\files\\data\\current_phrase.txt'
     with open(filename, 'w') as f:
         f.write(text)
-    with open(archived_filename, 'a') as f:
-        f.write('\nAudio Recorded: {} - {}:\n'.format(date[0],date[1]) + text + '\n')
+    if text == 'no audio to transcribe...':
+        with open(archived_filename, 'a') as f:
+            f.write('\nAudio Recorded: {} - {}:\n'.format(date[0],date[1]) + text + '\n')
 
 if __name__ == '__main__':
     # set filename to default audio file

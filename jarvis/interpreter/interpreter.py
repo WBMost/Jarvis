@@ -84,12 +84,11 @@ class Interpreter:
         # check most recent input
         with open('jarvis\\files\\data\\current_phrase.txt', 'r') as f:
             self.input = f.read()
-
-        # check if sent empty audio
+        # check if was sent empty audio
         if self.input == 'no audio to transcribe...':
             # build response based on lack of input
             if self.input_type != 'greeting':
-                self.response = 'Sorry. I had thought I heard something.'
+                self.response = 'Sorry. I thought I had heard something.'
             else:
                 self.input_type = ''
             self.response = self.response + FAREWELLS[random.randrange(0, len(FAREWELLS))]
