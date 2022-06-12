@@ -1,0 +1,1 @@
+This folder is where logs will appear. This is where the data is also pulled from to interpret what the user says.

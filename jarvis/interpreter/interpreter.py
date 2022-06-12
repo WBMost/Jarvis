@@ -13,6 +13,7 @@ PHRASE_CLASSES = [
 INPUT_PHRASES = {
     'greeting': [
         'hi',
+        'hey',
         'hello',
         'greetings',
         'good morning',
