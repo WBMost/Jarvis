@@ -59,7 +59,7 @@ class Recorder:
     def write(self, recording):
         # save and send audio to be transcribed
         filename = 'jarvis\\files\\data\\current_audio.wav'
-        wf = wave.open(filename, 'wb')
+        wf = wave.open(filename, 'w')
         wf.setnchannels(CHANNELS)
         wf.setsampwidth(self.p.get_sample_size(FORMAT))
         wf.setframerate(RATE)
