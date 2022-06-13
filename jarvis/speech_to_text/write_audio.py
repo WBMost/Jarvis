@@ -30,7 +30,7 @@ def write_audio_to_txt(text):
     filename = 'jarvis\\files\\data\\current_phrase.txt'
     with open(filename, 'w') as f:
         f.write(text)
-    if text == 'no audio to transcribe...':
+    if text != 'no audio to transcribe...':
         with open(archived_filename, 'a') as f:
             f.write('\nAudio Recorded: {} - {}:\n'.format(date[0],date[1]) + text + '\n')
 
