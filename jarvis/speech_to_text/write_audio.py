@@ -21,7 +21,7 @@ def interpret_audio(filename):
         except:
             return 'no audio to transcribe...'
         # print for debugging and display interpretation
-        return text
+        return text + ' '
 
 def write_audio_to_txt(text):
     # set filename to date for logging purposes

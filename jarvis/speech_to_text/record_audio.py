@@ -33,6 +33,8 @@ class Recorder:
 
     def __init__(self):
         self.p = pyaudio.PyAudio()
+        self.timeout_length = TIMEOUT_LENGTH
+        self.current_rec = []
         self.stream = self.p.open(format=FORMAT,
                                   channels=CHANNELS,
                                   rate=RATE,
@@ -45,13 +47,13 @@ class Recorder:
             print('Noise detected, recording beginning')
         rec = []
         current = time.time()
-        end = time.time() + 5
+        end = time.time() + self.timeout_length
         original_end = end
 
         while current <= end:
             data = self.stream.read(chunk)
             if self.rms(data) >= Threshold: 
-                end = time.time() + TIMEOUT_LENGTH
+                end = time.time() + self.timeout_length
             current = time.time()
             rec.append(data)
         if original_end != end:
@@ -68,6 +70,32 @@ class Recorder:
         wf.setframerate(RATE)
         wf.writeframes(recording)
         wf.close()
+        if __name__ == 'main':
+            print('Written to file: {}'.format(filename))
+        return filename
+
+
+    def record_wav(self):
+        if __name__ == 'main':
+            print('Noise detected, recording beginning')
+        current = time.time()
+        end = time.time() + self.timeout_length
+
+        while current <= end:
+            data = self.stream.read(chunk)
+            if self.rms(data) >= Threshold: 
+                end = time.time() + self.timeout_length
+            current = time.time()
+            self.current_rec.append(data)
+    
+    def write_wav(self, filename):
+        # save and send audio to be transcribed
+        recording = b''.join(self.current_rec)
+        with wave.open(filename, 'w') as wf:
+            wf.setnchannels(CHANNELS)
+            wf.setsampwidth(self.p.get_sample_size(FORMAT))
+            wf.setframerate(RATE)
+            wf.writeframes(recording)
         if __name__ == 'main':
             print('Written to file: {}'.format(filename))
         return filename
